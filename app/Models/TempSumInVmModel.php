@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WalletModel extends Model
+class TempSumInVmModel extends Model
 {
-    protected $table = 'wallets';
+    protected $table = 'temp_sum_in_vm';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class WalletModel extends Model
 
     public function insertCoin($value)
     {
-        $this->$value--;
+        $this->$value++;
         $this->save();
     }
 }

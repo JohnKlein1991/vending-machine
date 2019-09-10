@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\TempSumInVmModel;
 use App\Models\WalletModel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -40,6 +41,10 @@ class User extends Authenticatable
 
     public function wallet()
     {
-        return $this->hasOne(WalletModel::class);
+        return $this->hasOne(WalletModel::class, 'user_id', 'id');
+    }
+    public function tempSum()
+    {
+        return $this->hasOne(TempSumInVmModel::class, 'user_id', 'id');
     }
 }

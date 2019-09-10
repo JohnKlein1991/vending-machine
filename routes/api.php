@@ -21,5 +21,9 @@ Route::get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->get('/get-vm-coins', 'ApiController@getVMCoins');
+Route::middleware('auth:api')->get('/get-vm-temp-sum', 'ApiController@getVMTempSum');
 Route::middleware('auth:api')->get('/get-user-coins', 'ApiController@getUserCoins');
 Route::middleware('auth:api')->get('/get-products-info', 'ApiController@getProductsInfo');
+
+
+Route::middleware('auth:api')->get('/insert-coin', 'ApiController@insertCoin');

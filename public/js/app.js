@@ -2027,7 +2027,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      userCoins: null,
+      tempSum: null
+    };
   },
   methods: {
     getApiToken: function getApiToken() {
@@ -2041,12 +2044,38 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getUserCoins: function getUserCoins() {
+      var _this = this;
+
       var token = this.getApiToken();
       axios.get('/api/get-user-coins?api_token=' + token).then(function (response) {
-        console.log(response.data);
+        _this.userCoins = response.data;
       });
     },
-    getInsertedMoney: function getInsertedMoney() {}
+    insertCoin: function insertCoin(value) {
+      var _this2 = this;
+
+      var token = this.getApiToken();
+      axios.get('/api/insert-coin?value=' + value + '&api_token=' + token).then(function (response) {
+        _this2.userCoins = response.data;
+      }).then(function (res) {
+        _this2.getUserCoins();
+
+        _this2.getInsertedMoney();
+      });
+    },
+    getInsertedMoney: function getInsertedMoney() {
+      var _this3 = this;
+
+      var token = this.getApiToken();
+      axios.get('/api/get-vm-temp-sum?api_token=' + token).then(function (response) {
+        console.log(response.data);
+
+        if (response.data) {
+          var data = response.data;
+          _this3.tempSum = data.one_rub + data.two_rub * 2 + data.five_rub * 5 + data.ten_rub * 10;
+        }
+      });
+    }
   },
   created: function created() {
     this.getUserCoins();
@@ -37563,121 +37592,156 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "col-md-12 user_wallet mb-4", attrs: { id: "user_coins" } },
+    [
+      _c("div", { staticClass: "border rounded" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex flex-row  justify-content-start" }, [
+          _c("div", { staticClass: "col-sm-2 p-0" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("1 RUB")]),
+                _vm._v(" "),
+                _vm.userCoins
+                  ? _c("p", { staticClass: "card-text" }, [
+                      _vm._v("Remains: " + _vm._s(_vm.userCoins.one_rub))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.insertCoin("one_rub")
+                      }
+                    }
+                  },
+                  [_vm._v("Insert")]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-2 p-0" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("2 RUB")]),
+                _vm._v(" "),
+                _vm.userCoins
+                  ? _c("p", { staticClass: "card-text" }, [
+                      _vm._v("Remains: " + _vm._s(_vm.userCoins.two_rub))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.insertCoin("two_rub")
+                      }
+                    }
+                  },
+                  [_vm._v("Insert")]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-2 p-0" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("5 RUB")]),
+                _vm._v(" "),
+                _vm.userCoins
+                  ? _c("p", { staticClass: "card-text" }, [
+                      _vm._v("Remains: " + _vm._s(_vm.userCoins.five_rub))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.insertCoin("five_rub")
+                      }
+                    }
+                  },
+                  [_vm._v("Insert")]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-2 p-0" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("10 RUB")]),
+                _vm._v(" "),
+                _vm.userCoins
+                  ? _c("p", { staticClass: "card-text" }, [
+                      _vm._v("Remains: " + _vm._s(_vm.userCoins.ten_rub))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.insertCoin("ten_rub")
+                      }
+                    }
+                  },
+                  [_vm._v("Insert")]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-3 p-0 ml-auto" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Total sum in VM")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(_vm.tempSum) + " RUB")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                  [_vm._v("Get money")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-12 user_wallet mb-4",
-        attrs: { id: "user_coins" }
-      },
-      [
-        _c("div", { staticClass: "border rounded" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("\n                Your coins\n            ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-flex flex-row  justify-content-start" }, [
-            _c("div", { staticClass: "col-sm-2 p-0" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [_vm._v("1 RUB")]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("Remains: 10")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                    [_vm._v("Insert")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-2 p-0" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [_vm._v("2 RUB")]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("Remains: 10")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                    [_vm._v("Insert")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-2 p-0" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [_vm._v("5 RUB")]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("Remains: 10")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                    [_vm._v("Insert")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-2 p-0" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [_vm._v("10 RUB")]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v("Remains: 10")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                    [_vm._v("Insert")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-3 p-0 ml-auto" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title" }, [
-                    _vm._v("Total sum in VM")
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [_vm._v("0 RUB")]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                    [_vm._v("Get money")]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v("\n                Your coins\n            ")
+      ])
+    ])
   }
 ]
 render._withStripped = true

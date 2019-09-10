@@ -18,15 +18,25 @@ class ApiController extends Controller
     }
     public function getUserCoins()
     {
-        $id = Auth::id();
-        $wallet = (new User(['id' => $id]))->wallet;
-        var_dump($wallet);
-        die();
+        $wallet = Auth::user()->wallet;
         return response()->json($wallet);
     }
     public function getProductsInfo()
     {
         $products = ProductModel::all();
         return response()->json($products);
+    }
+    public function getVMTempSum()
+    {
+        $tempSum = Auth::user()->tempSum;
+        return response()->json($tempSum);
+    }
+
+    public function insertCoin(Request $request)
+    {
+        $value = $request->value;
+        if(!(Auth::user()->wallet->$value)) return;
+        Auth::user()->wallet->insertCoin($value);
+        Auth::user()->tempSum->insertCoin($value);
     }
 }
