@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::get('/user', function (Request $request) {
+    return \Illuminate\Support\Str::random(60);
+    dd($request->user());
     return $request->user();
 });
+
+Route::middleware('auth:api')->get('/get-vm-coins', 'ApiController@getVMCoins');
+Route::middleware('auth:api')->get('/get-user-coins', 'ApiController@getUserCoins');
+Route::middleware('auth:api')->get('/get-products-info', 'ApiController@getProductsInfo');

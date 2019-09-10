@@ -13,8 +13,13 @@ class CreateWalletsTable extends Migration
      */
     public function up()
     {
-        Schema::table('wallets', function (Blueprint $table) {
-            //
+        Schema::create('wallets', function (Blueprint $table) {
+            $table->bigIncrements('id')->autoIncrement();
+            $table->bigInteger('user_id');
+            $table->integer('one_rub');
+            $table->integer('two_rub');
+            $table->integer('five_rub');
+            $table->integer('ten_rub');
         });
     }
 
@@ -26,7 +31,7 @@ class CreateWalletsTable extends Migration
     public function down()
     {
         Schema::table('wallets', function (Blueprint $table) {
-            //
+            Schema::drop('wallets');
         });
     }
 }

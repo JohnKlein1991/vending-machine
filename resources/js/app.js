@@ -9,6 +9,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 import router from './router';
 import App from './components/App';
 
@@ -24,7 +26,6 @@ import App from './components/App';
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('machine', require('./components/VendingMachine').default);
-Vue.use(VueRouter);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
