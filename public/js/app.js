@@ -1925,10 +1925,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      products: null
+      products: null,
+      noEnoughMoney: false
     };
   },
   methods: {
@@ -1954,10 +1961,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var token = this.getApiToken();
-      axios.get('/api/buy-product?product=' + title + '&api_token=' + token).then(function (response) {}).then(function (res) {
-        _this2.getProductsInfo();
+      axios.get('/api/buy-product?product=' + title + '&api_token=' + token).then(function (response) {
+        if (response.data.no_money) {
+          _this2.noEnoughMoney = true;
+        } else {
+          window.location.reload();
+        }
       });
-      ;
     },
     getSrc: function getSrc(title) {
       return "/storage/images/" + title + ".gif";
@@ -2138,10 +2148,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       var token = this.getApiToken();
-      axios.get('/api/get-money?api_token=' + token).then(function (response) {}).then(function (res) {
+      axios.get('/api/get-money?api_token=' + token).then(function (res) {
         _this4.getUserCoins();
 
         _this4.getInsertedMoney();
+
+        window.location.reload();
       });
     }
   },
@@ -37599,6 +37611,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-md-8", attrs: { id: "vm_goods" } }, [
+    _vm.noEnoughMoney
+      ? _c(
+          "div",
+          {
+            staticClass: "alert alert-danger alert-dismissible fade show",
+            attrs: { role: "alert" }
+          },
+          [_vm._v("\n        No enough money!\n        "), _vm._m(0)]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "border rounded" }, [
       _c(
         "div",
@@ -37649,7 +37672,25 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 
 

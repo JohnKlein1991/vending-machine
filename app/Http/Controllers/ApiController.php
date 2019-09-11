@@ -65,7 +65,9 @@ class ApiController extends Controller
             $cost = $product->cost;
             $tempSum = $tempWallet->getSum();
             $restSum = $tempSum - $cost;
-            if($restSum < 0) return;
+            if($restSum < 0) {
+                return response(['no_money' => true]);
+            }
 
             $tempCoins = $tempWallet->getCoins();
             $tempWallet->zeroTempMoney();

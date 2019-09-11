@@ -115,12 +115,10 @@
                 let token = this.getApiToken();
                 axios
                     .get('/api/get-money?api_token='+token)
-                    .then(response => {
-
-                    })
                     .then(res => {
                         this.getUserCoins();
                         this.getInsertedMoney();
+                        window.location.reload()
                     });
             }
         },

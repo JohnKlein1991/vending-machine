@@ -1,5 +1,11 @@
 <template>
     <div class="col-md-8" id="vm_goods">
+        <div v-if="noEnoughMoney" class="alert alert-danger alert-dismissible fade show" role="alert">
+            No enough money!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="border rounded">
             <div class="row d-flex justify-content-around">
                 <div class="card my-4" v-for="product in products" style="width: 18rem;">
@@ -22,7 +28,8 @@
     export default {
         data() {
             return {
-                products: null
+                products: null,
+                noEnoughMoney: false
             }
         },
         methods: {
@@ -49,12 +56,12 @@
                 axios
                     .get('/api/buy-product?product='+title+'&api_token='+token)
                     .then(response => {
-
-                    })
-                    .then(res => {
-                       this.getProductsInfo();
+                        if(response.data.no_money){
+                            this.noEnoughMoney = true;
+                        } else {
+                            window.location.reload();
+                        }
                     });
-                ;
             },
             getSrc(title){
                 return "/storage/images/" + title + ".gif";
