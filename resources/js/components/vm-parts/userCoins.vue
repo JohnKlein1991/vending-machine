@@ -49,7 +49,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Total sum in VM</h5>
                             <p class="card-text">{{ tempSum }} RUB</p>
-                            <button href="#" class="btn btn-primary">Get money</button>
+                            <button v-on:click="backTempMoney" class="btn btn-primary">Get money</button>
                         </div>
                     </div>
                 </div>
@@ -86,6 +86,7 @@
                 ;
             },
             insertCoin(value){
+                console.log(this.$refs);
                 let token = this.getApiToken();
                 axios
                     .get('/api/insert-coin?value='+value+'&api_token='+token)
@@ -103,13 +104,24 @@
                 axios
                     .get('/api/get-vm-temp-sum?api_token='+token)
                     .then(response => {
-                        console.log(response.data);
                         if(response.data){
                             let data = response.data;
                             this.tempSum = data.one_rub + data.two_rub*2 + data.five_rub*5 + data.ten_rub*10;
                         }
                     })
                 ;
+            },
+            backTempMoney(){
+                let token = this.getApiToken();
+                axios
+                    .get('/api/get-money?api_token='+token)
+                    .then(response => {
+
+                    })
+                    .then(res => {
+                        this.getUserCoins();
+                        this.getInsertedMoney();
+                    });
             }
         },
         created: function() {

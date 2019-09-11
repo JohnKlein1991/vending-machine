@@ -27,3 +27,7 @@ Route::middleware('auth:api')->get('/get-products-info', 'ApiController@getProdu
 
 
 Route::middleware('auth:api')->get('/insert-coin', 'ApiController@insertCoin');
+Route::middleware('auth:api')->get('/get-money', 'ApiController@getMoney');
+Route::middleware('auth:api')->get('/buy-product', 'ApiController@buyProduct');
+
+Route::middleware('auth:api')->get('/return', 'ApiController@returnToInitialValues');

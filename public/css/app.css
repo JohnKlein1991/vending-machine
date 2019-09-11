@@ -10644,8 +10644,8 @@ a.text-dark:focus {
   }
 }
 
-.img_wallet {
-  width: 100%;
+img {
+  width: 164px !important;
 }
 
 .button-round {

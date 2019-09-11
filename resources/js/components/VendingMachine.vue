@@ -6,6 +6,7 @@
                 <products></products>
                 <vmCoins></vmCoins>
             </div>
+            <returnBlock></returnBlock>
         </div>
     </div>
 </template>
@@ -14,12 +15,16 @@
     import userCoins from './vm-parts/userCoins';
     import vmCoins from './vm-parts/vmCoins';
     import products from './vm-parts/products';
+    import returnBlock from './vm-parts/returnBlock';
+
     import axios from 'axios';
+
     export default {
         components: {
             userCoins,
             products,
-            vmCoins
+            vmCoins,
+            returnBlock
         },
         methods: {
 
